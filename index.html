@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hiệu ứng cụm từ rơi 4D</title>
+  <style>
+    html, body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      height: 100vh;
+    }
+
+    #scene {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    #container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      transition: transform 0.1s;
+    }
+
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .text {
+      position: absolute;
+      font-family: monospace;
+      color: pink;
+      white-space: nowrap;
+      opacity: 0;
+      animation: fall 5s linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -60px;
+        opacity: 0;
+        transform: translateZ(500px) scale(0.1);
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        transform: translateZ(0px) scale(1);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="scene">
+    <div id="container"></div>
+  </div>
+
+  <script>
+    const phrases = [
+"Dương Ngố"
+    ];
+
+    const container = document.getElementById("container");
+
+    const layerCount = 5;
+    const layers = [];
+
+    // Tạo nhiều lớp với độ sâu khác nhau
+    for (let i = 0; i < layerCount; i++) {
+      const layer = document.createElement("div");
+      layer.className = "layer";
+      layer.style.transform = `translateZ(${-i * 150}px)`; // Cách lớp 200px
+      container.appendChild(layer);
+      layers.push(layer);
+    }
+
+    function createFallingPhrase(layer, depth) {
+      const text = document.createElement("div");
+      text.className = "text";
+      text.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+      text.style.left = Math.random() * (window.innerWidth - 200) + "px";
+
+      const size = 28 - depth * 3;
+      text.style.fontSize = size + "px";
+      text.style.opacity = 1 - depth * 0.15;
+      text.style.animationDuration = (Math.random() * 2 + 5 + depth) + "s";
+
+      layer.appendChild(text);
+      setTimeout(() => text.remove(), 6000);
+    }
+
+    // Mỗi lớp rơi cụm từ riêng
+    setInterval(() => {
+      layers.forEach((layer, i) => {
+        createFallingPhrase(layer, i);
+      });
+    }, 150);
+
+    // Xử lý xoay bằng chuột
+    let isDragging = false;
+    let prevX, prevY;
+    let rotateX = 0, rotateY = 0;
+
+    document.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        prevX = e.clientX;
+        prevY = e.clientY;
+      });
+      
+      document.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+      
+      document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+          let deltaX = e.clientX - prevX;
+          let deltaY = e.clientY - prevY;
+          prevX = e.clientX;
+          prevY = e.clientY;
+          rotateY += deltaX * 0.3;
+          rotateX -= deltaY * 0.3;
+          container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      });
+// Xử lý chạm cho thiết bị di động
+document.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    prevX = e.touches[0].clientX;
+    prevY = e.touches[0].clientY;
+  });
+  
+  document.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+  
+  document.addEventListener("touchmove", (e) => {
+    if (isDragging) {
+      const touch = e.touches[0];
+      let deltaX = touch.clientX - prevX;
+      let deltaY = touch.clientY - prevY;
+      prevX = touch.clientX;
+      prevY = touch.clientY;
+      rotateY += deltaX * 0.3;
+      rotateX -= deltaY * 0.3;
+      container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+  });
+        
+  </script>
+</body>
+</html>
