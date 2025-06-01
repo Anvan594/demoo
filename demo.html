@@ -1,74 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>demo ❤️</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin-top: 100px;
-      background-color: #ffe6e6;
-    }
-    h1 {
-      font-size: 2rem;
-      color: #e6005c;
-    }
-    #buttons {
-      margin-top: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      transition: all 0.3s ease;
-    }
-    button {
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    #yes {
-      background-color: #4CAF50;
-      color: white;
-      font-size: 20px;
-      padding: 12px 24px;
-    }
-    #no {
-      background-color: #f44336;
-      color: white;
-      font-size: 20px;
-      padding: 12px 24px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>demo ❤️</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 100px;
+            background-color: #ffe6e6;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #e6005c;
+        }
+
+        #buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #yes {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 20px;
+            padding: 12px 24px;
+        }
+
+        #no {
+            background-color: #f44336;
+            color: white;
+            font-size: 20px;
+            padding: 12px 24px;
+        }
+
+        /* Thông báo giữa màn hình */
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: #e6005c;
+            font-size: 1.5rem;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 999;
+            animation: pop 0.4s ease;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.7) translate(-50%, -50%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <h1>Ấn chữ không đi em 🥰</h1>
+    <h1>Ấn nút không đi em 🥰</h1>
 
-  <div id="buttons">
-    <button id="yes">Có ❤️</button>
-    <button id="no">Không ❌</button>
-  </div>
+    <div id="buttons">
+        <button id="yes">Có ❤️</button>
+        <button id="no">Không ❌</button>
+    </div>
 
-  <script>
-    const btnYes = document.getElementById('yes');
-    const btnNo = document.getElementById('no');
+    <!-- Thông báo giữa màn hình -->
+    <div id="popup">Không ấn được đâu bé ơi 💖</div>
 
-    let fontSize = 20; // px
-    let padding = 24; // px (chiều ngang)
+    <script>
+        const btnYes = document.getElementById('yes');
+        const btnNo = document.getElementById('no');
+        const popup = document.getElementById('popup');
 
-    btnNo.addEventListener('click', () => {
-      fontSize += 12;
-      padding += 5;
-      btnYes.style.fontSize = fontSize + "px";
-      btnYes.style.padding = padding + "px";
-    });
+        let fontSize = 20;
+        let padding = 24;
 
-    btnYes.addEventListener('click', () => {
-      alert("Không ấn được đâu bé ơi 🥰");
-    });
-  </script>
+        btnNo.addEventListener('click', () => {
+            fontSize += 10;
+            padding += 30;
+            btnYes.style.fontSize = fontSize + "px";
+            btnYes.style.padding = padding;
+        });
+
+        btnYes.addEventListener('click', () => {
+            popup.style.display = "block";
+        });
+    </script>
 
 </body>
 </html>
