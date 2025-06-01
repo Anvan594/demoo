@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tỏ tình ❤️</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 100px;
+      background-color: #ffe6e6;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #e6005c;
+    }
+    #buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yes {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 20px;
+      padding: 12px 24px;
+    }
+    #no {
+      background-color: #f44336;
+      color: white;
+      font-size: 20px;
+      padding: 12px 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ấn chữ không đi em 🥰</h1>
+
+  <div id="buttons">
+    <button id="yes">Có ❤️</button>
+    <button id="no">Không ❌</button>
+  </div>
+
+  <script>
+    const btnYes = document.getElementById('yes');
+    const btnNo = document.getElementById('no');
+
+    let fontSize = 20; // px
+    let padding = 24; // px (chiều ngang)
+
+    btnNo.addEventListener('click', () => {
+      fontSize += 12;
+      padding += 5;
+      btnYes.style.fontSize = fontSize + "px";
+      btnYes.style.padding = padding + "px";
+    });
+
+    btnYes.addEventListener('click', () => {
+      alert("Không ấn được đâu bé ơi 🥰");
+    });
+  </script>
+
+</body>
+</html>
